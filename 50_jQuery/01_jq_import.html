@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "utf-8">
+	<title>  </title>
+    <!--jQuery import 방식 1 -->
+   <!-- <script src= "js/jquery-3.6.0.min.js"></script>-->
+     <!--jQuery import 방식 2(CDN 방식) -->
+    <script src = "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+<script>
+   //JavaScript DOM 객체 다루기
+    console.log("head javaScript 시작")
+    window.onload = function(){
+        
+        document.getElementById("id1").style.color = "navy";
+        console.log("window.onload 이벤트 처리");
+    };
+  
+    //제이쿼리(jQuery) 사용방식 3가지 
+    //첫번재 방식 - jQuery(document).ready(function (){}; //많이 쓰지 않음
+    //               $(document).ready(function (){};
+    jQuery(document).ready(function (){
+        jQuery("#id1").css("background-color", "lightyellow");
+        console.log("jQuery document ready");
+    });
+    $(document).ready(function (){
+        jQuery("#id1").css("border", "3px solid lightgray");
+        console.log("jQuery document ready");
+    });
+    
+    //--------------------
+    //두번째 방식 :  $().ready(function(){});
+    $().ready(function(){
+        $("#id1").css("background-color", "lightpink");
+        
+    });
+    
+    //-------------------
+    //세번째 방식 :$(function(){});
+    $(function(){
+        $("#id1").css("backgroud-color", "lightcoral");
+    });
+    
+    
+    
+    
+</script>
+    
+    
+</head>
+<body>
+    <h1 id = "id1"> 제이 쿼리(jQuery)</h1>
+    
+    <script>
+        $("#id1").css("background-color", "lightblue");
+        console.log("body  JavaScript 시작");
+    </script>
+    
+	
+</body>
+</html>
+
+
+
+
+

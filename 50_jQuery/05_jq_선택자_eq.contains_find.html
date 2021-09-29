@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "utf-8">
+	<title> eq, contains, fond</title>
+      <!--jQuery import 방식 2(CDN 방식) -->
+     <script src = "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //필터 선택자 - 선택자에 콜른(:) 기호를 포함하는 선택자
+    // :contains(문자열) - 문자열을 포함하고 있는 요소
+    // :eq(index) : 인덱스 번호에 해당하는 요소
+    // :gt(index) : 인덱스 번호보다 큰 요소
+    // :lt(index) : 인덱스 번호보다 작은 요소
+    // $(선택자).find(필터) : 자손태그 중 필터링해서 찾기
+    // parent() : 부모요소 선택
+    // siblings() : 형제요소 선택
+    //--------------------------
+    //$(document).ready();
+    //$().ready();
+    //$(function(){});
+    $(document).ready(function(){
+/*        
+        $("td:contains('Java)").css("background-color", "yellow");
+        
+        $("td:contains('JSP')")
+            .css("border", "3px dotted navy")
+            .siblings() //형제 요소 선택
+            .css("color", "white")
+            .parent()
+            .css("background-color", "lightblue");
+        
+        $("td:eq(2)").css("background-color", "lightgreen");      
+        $("td:lt(2)").css("background-color", "green");      
+        $("td:gt(2)").css("background-color", "lightblue");      
+        
+        $("tbody").find("td:gt(0)").css("background-color", "lightgray");
+    
+        
+        //$("td:contains('basic')").css("background-color", "lightgray");
+        $("tr:contains('basic')")
+            .parent()
+            .find("td:gt(1)") //find 메소드는 부모태그 기준 자손에서 찾는다
+            .css("background-color", "lightblue");
+       
+        $("thead th").css("background-color", "lightgray");
+        $("thead").find("th:eq(0)").css("background-color", "lightgreen");
+*/          
+        $(".c1").find("td:eq(0)").css("background-color", "green");
+        $(".c1 td:eq(0)").css("background-color", "green");v
+        
+        
+        
+        
+    });
+    
+    
+    
+</script>
+    
+    
+</head>
+<body>
+    <table border>
+        <thead>
+            <tr>
+                <th> 과목</th>
+                <th> 상세내용</th>
+                <th> 비고(버전)</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td> JSP</td>
+                <td> Server, EL, JSP</td>
+                <td> 2.3</td>
+                
+            </tr>
+            
+            <tr>
+                <td> Java</td>
+                <td> basic</td>
+                <td> 8.0</td>
+            </tr>
+            
+            
+        </tbody>
+        
+    </table>
+	
+</body>
+</html>
+
+
+
+
+
