@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%-- 요청 사이트에 따라 재요청 처리 --%>    
+ 
+<%
+	//요청 사이트에 따라서 웹사이트 이동처리
+	String site = request.getParameter("site");
+
+%>    
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>응답페이지</title>
+</head>
+<body>
+	<h1>응답페이지(ex10_resp_redirect.jsp) </h1>
+</body>
+</html>

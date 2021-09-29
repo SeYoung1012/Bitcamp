@@ -1,0 +1,10 @@
+INDEX VERSION 1.131+C:\MyStudy\60_web\.metadata\.plugins\org.eclipse.jdt.core
+2660875840.index
+1153442299.index
+2988243063.index
+1957800757.index
+1307668579.index
+1484932558.index
+1434210962.index
+509490366.index
+3009177480.index

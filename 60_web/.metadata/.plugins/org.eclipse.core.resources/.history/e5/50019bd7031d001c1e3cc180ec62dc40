@@ -1,0 +1,73 @@
+package com.mystudy.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/sungjuk")
+public class Ex05 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	
+	
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//(실습) 전달받은 데이터를 연산처리 후 결과를 응답
+		// 1. 전달받은 데이터(파라미터) 값 추출
+		// 2. 연산처리(총점, 평균 구하기)
+		// 3. 응답처리(브라우저 쪽으로)
+		
+		String name = request.getParameter("name");
+		String kor = request.getParameter("kor");
+		String eng = request.getParameter("eng");
+		String math = request.getParameter("math");
+		
+		
+		//추출된 데이터 확인
+		System.out.println("---------");
+		System.out.println("name :" +name);
+		System.out.println("kor : " + kor);
+		System.out.println("eng :" + eng);
+		System.out.println("math : " + math);
+		
+		
+		
+		//=================================
+		//클라이언트(브라우저) 쪽으로 응답 처리
+		//응답데이터 한글 깨짐 방지를 위한 문자셋 설정
+		response.setContentType("text/html;charset=UTF-8"); //문자셋 지정(한글처리)
+		
+		
+		
+		int tot = Integer.parseInt(kor + eng + math);		
+		double avg = tot * 100 / 3 / 100.0;
+				
+		System.out.println("tot : " + tot);
+		System.out.println("avg : " + avg);
+		
+		
+		PrintWriter out = response.getWriter();	
+		out.println("<h3> 성적처리결과</h3>");
+		out.println("<table border>");
+		out.println("<tr>");
+		out.println("<th>이름</th>");
+		
+		out.println("<td>" + name + "</td>");
+		out.println("</tr>");
+		
+		
+		out.println("</table>");
+		
+		
+		
+				
+				
+	}
+
+}

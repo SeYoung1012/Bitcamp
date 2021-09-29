@@ -1,0 +1,9 @@
+package com.mystudy;
+
+public class MemberVO {
+	
+	private String id, pwd, name;
+	private String gender;
+	private String[] hobby;
+	
+}

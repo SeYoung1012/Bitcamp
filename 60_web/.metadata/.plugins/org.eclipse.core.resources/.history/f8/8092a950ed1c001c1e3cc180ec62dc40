@@ -1,0 +1,6 @@
+package com.mystudy.servlet;
+
+
+public class Ex04 extends HttpServlet{
+
+}

@@ -1,0 +1,42 @@
+<%@page import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+ <%-- (실습)전달받은 데이터 (파라미터값) 사용해서 DB데이터 삭제처리
+	정상처리 후 : list.jsp 이동
+	예외발생 : 현재 페이지에 오류 메세지 보여주기 
+	
+	
+--%>   
+    
+<%
+	//1. 전달받은 파라미터 값 확인(추출)
+	int sabun = Integer.parseInt(request.getParameter("sabun"));
+	
+
+	//2. DB 데이터 삭제 처리
+	final String DRIVER = "oracle.jdbc.OracleDriver";
+	final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	final String USER = "mystudy";
+	final String PASSWORD = "mystudypw";
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	
+	//3. 페이지 이동처리
+	
+
+
+%>    
+    
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>
