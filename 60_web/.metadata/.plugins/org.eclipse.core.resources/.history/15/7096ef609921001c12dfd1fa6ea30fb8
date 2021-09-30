@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> JSTL format</title>
+</head>
+<body>
+	<h1> 데이터 포맷 지정</h1>
+	<h2>formatNumber : 숫자 출력 형식 지정, #, ###.## / 0,000.00</h2>
+	<
+</body>
+</html>

@@ -105,6 +105,67 @@
 	
 	<%-- ====== JSTL 반목문 forEach ========= --%>
 	
+	<h2> JSTL 반복문 : forEach</h2>
+	<p> 1~10까지의 숫자 출력</p>
+	<c:forEach var = "i" begin ="1" end = "10" step = "1">
+		${i }&nbsp;&nbsp;
+	</c:forEach>
+	<p> forEach 문 종료 후 \${i }값 출력 : -${i }-</p>
+	<hr>
+	
+	<p>1~10까지의 숫자 중 짝수만 출력(step = "1") 사용 </p>
+	<c:forEach var = "i"  begin = "1" end = "10" step = "1">
+		<c:if test="${(i % 2) == 0}">
+			${i } 
+		</c:if>
+	</c:forEach>
+	<hr>
+		
+	<p>1~10까지의 숫자 중 짝수만 출력(step = "2") 사용 </p>
+	<c:forEach var = "i"  begin = "2" end = "10" step = "2">
+			${i } 	
+	</c:forEach>
+	<hr><hr>
+	
+	<%-- ====forEach 문 집합객체 처리==== --%>
+	<h2> forEach 문 집합객체 처리</h2>
+	<h3> 배열값 출력 - 스크립트릿</h3>
+	
+<%
+	String [] arr = { "홍길동1", "홍길동2", "홍길동3", "홍길동4" };
+	for(String name : arr) {
+		out.print(name + ",");
+	}
+	
+%>
+	<%-- 배열arr 데이터를 page scope에 "attr_name" 라는 속성명으로 저장 --%>
+	<c:set var = "attr_names" value = "<%=arr %>"/>
+	
+	<h3>=== 배열값 출력 - JSTL forEach ===</h3>	
+	<c:forEach var = "name" items = "${attr_names }">
+		${name }, 
+	</c:forEach>
+	<hr><hr>
+	
+	
+	<%-- =========== forTokens 태그 =========== --%>
+	<h2> forTokens 태그 : 문자열 자르기 </h2>
+	<c:set var = "names" value = "홍길동/김유신/일지매, 임꺽정/둘리,고길동"/>
+	<p>문자열 데이터 :${names } </p>
+	
+	<h3> forTokens 태그 사용 / 구분자로 문자열 자르기</h3>
+	<c:forTokens var = "name" items="${names }" delims="/">
+		<p>${name } </p>
+	</c:forTokens>
+	<hr>
+	
+	<h3> forTokens 태그 사용 /와 , 구분자로 문자열 자르기</h3>
+	<c:forTokens var = "name" items="${names }" delims="/ ," >
+		<p>${name } </p>
+	</c:forTokens>
+	<hr>
+	
+	
 	
 	
 	

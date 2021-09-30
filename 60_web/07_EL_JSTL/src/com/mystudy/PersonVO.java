@@ -6,6 +6,15 @@ public class PersonVO {
 	private String age;
 	
 	
+
+	public PersonVO() {
+		
+	}
+	public PersonVO(String name, String age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
 	public String getName() {
 		return name;
 	}
