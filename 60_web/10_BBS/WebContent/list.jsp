@@ -7,14 +7,11 @@
 
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %> 
 <%-- 현재 페이지에 표시할 데이터를 화면 표시 
+
 	1. 페이징 처리를 위한 객체(Paging)를 생성해서 필요한 데이터 참조
-	
 	2. 페이징 객체에 설정할 데이터 저장
-	
 	3.(DB) 전체 데이터 건수 조회
-	
 	4. (DB) 현재 페이지 표시할 데이터 조회
-	
 	5. 데이터 화면 표시(화면 컨트롤 - 스타일 지정)	
 
 
@@ -60,6 +57,19 @@
 	(개인실습) 현재페이지 번호로 현재 블록(nowBlock) 구한 후
 	시작페이지, 끝페이지 구하기(끝페이지 구하고 시작페이지 구하기)
 */
+	
+	int nowpg = p.getNowPage();
+	int endpg = p.getNowPage() + p.getPagePerBlock() -1 ;
+	
+	if(nowpg == p.getNowBlock()) {
+		p.getNowBlock();
+	} else if(endpg == p.getEndPage()) {
+		p.getPagePerBlock();
+	}
+	System.out.println(">>p.getPagePerBlock():" + p.getPagePerBlock());
+
+	
+
 	//4-1. 끝페이지(endPage)가 전체페이지 수(totalPage) 보다 크면
 	// 끝페이지를 전체페이지 수로 변경 처리
 	if (p.getEndPage() > p.getTotalPage()) {
@@ -178,7 +188,7 @@
 		<tr>
 			<td>${vo.b_idx }</td>
 			<td class="align-left">
-			<a href = "view.jsp?b_idx=${vo.b_idx }"> ${vo.subject }</a>
+			<a href="view.jsp?b_idx=${vo.b_idx }&cPage=${pvo.nowPage}"> ${vo.subject }</a>
 			
 			</td>
 			<td>${vo.writer }</td>
@@ -234,7 +244,6 @@
 		
 	</tfoot>
 </table>
-
 </div>
 
 

@@ -40,6 +40,19 @@ public class DAO {
 		return vo;
 	}
 	
+	//게시글 입력 
+	
+	public static int insert(BBSVO bvo) {
+		SqlSession ss = DBService.getFactory().openSession(true);
+		int result = ss.insert("bbs.insert", bvo);
+		//ss.commit(); //true값을 넣었기에 자동 commit됨.
+		ss.close();
+		return result;
+		
+	}
+	
+	
+	
 	//============ 댓글 관련 =====================
 	public static List<CommentVO> getCommList(int b_idx) {
 		SqlSession ss = DBService.getFactory().openSession();

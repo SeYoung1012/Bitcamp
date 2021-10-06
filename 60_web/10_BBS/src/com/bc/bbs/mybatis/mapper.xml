@@ -38,6 +38,16 @@
  		WHERE B_IDX = #{b_idx}
  	</select>
  	
+ 	<insert id="insert" parameterType="bbsVO">
+ 		INSERT INTO BBS_T 
+			(B_IDX, SUBJECT, WRITER, CONTENT, FILE_NAME,
+				ORI_NAME, PWD, WRITE_DATE ,IP, HIT )
+		VALUES (BBS_T_SEQ.NEXTVAL, #{subject}, #{writer}, #{content}, #{file_name},
+				#{ori_name},#{pwd},SYSDATE, #{ip},0)
+ 	</insert>
+ 	
+ 	
+ 	
  	<!-- =========== 댓글 관련 SQL ==================== -->
  	<!-- 게시글에 달린 댓글 조회 -->
  	<select resultType="com.bc.bbs.vo.CommentVO" id="commList" parameterType="int">

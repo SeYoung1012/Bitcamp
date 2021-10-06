@@ -9,7 +9,7 @@
 	</settings>
 
 	<typeAliases>
-		<typeAlias type="com.bc.bbs.vo.BBSVO" alias = "bbsVO"/>
+		<typeAlias alias = "bbsVO" type="com.bc.bbs.vo.BBSVO" />
 	</typeAliases>
 	
   <environments default="development">
