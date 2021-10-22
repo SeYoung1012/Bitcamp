@@ -1,0 +1,9 @@
+package jdbc.store.test;
+
+public class BookMain {
+	
+	public static void main(String[] args) {
+		new BookViewer().bookMenu();
+	}
+
+}
