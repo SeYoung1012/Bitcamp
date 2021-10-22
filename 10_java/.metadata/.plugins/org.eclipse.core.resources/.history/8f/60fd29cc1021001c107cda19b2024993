@@ -1,5 +1,0 @@
-package jdbc.store.view;
-
-public class BookViewer {
-
-}
