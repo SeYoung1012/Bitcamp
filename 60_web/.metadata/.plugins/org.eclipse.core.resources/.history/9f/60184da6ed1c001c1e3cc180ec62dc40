@@ -1,8 +1,0 @@
-package com.mystudy.servlet;
-
-import javax.servlet.http.HttpServlet;
-
-@WebServlet("/singup")
-public class Ex04 extends HttpServlet{
-
-}

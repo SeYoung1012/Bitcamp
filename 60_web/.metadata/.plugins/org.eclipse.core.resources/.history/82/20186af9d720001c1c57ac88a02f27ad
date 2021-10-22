@@ -1,9 +1,0 @@
-package com.mystudy;
-
-public class PersonVO {
-	
-	private String name;
-	private String age;
-	
-
-}
