@@ -1,0 +1,207 @@
+--박지성 고객 ID
+SELECT CUSTID FROM CUSTOMER WHERE NAME = '박지성'; --CUSTID : 1
+--박지성이 구매한 책의 합계 금액
+SELECT * FROM ORDERS WHERE CUSTID = 1;
+SELECT SUM(SALEPRICE) FROM ORDERS WHERE CUSTID = 1;
+
+--서브 쿼리 (SUB QUERY) 방식 
+SELECT SUM(SALEPRICE) FROM ORDERS
+WHERE CUSTID = (SELECT CUSTID FROM CUSTOMER WHERE NAME = '박지성');
+
+--======================
+--테이블 조인(JOIN) 방식
+SELECT * FROM CUSTOMER WHERE CUSTID = 1;
+SELECT * FROM ORDERS WHERE CUSTID = 1;
+
+--CUSTOMER, ORDERS 테이블 데이터 동시 조회
+SELECT * 
+FROM CUSTOMER, ORDERS
+WHERE CUSTOMER.CUSTID = ORDERS.CUSTID --조인 조건
+AND NAME  = '박지성' --데이터 찾는 조건
+;
+---------------
+--테이블에 대한 별칭 사용으로 간단하게 표시하고 사용
+SELECT * 
+FROM CUSTOMER C, ORDERS O -- 테이블에 대한 별칭 사용
+WHERE C.CUSTID = O.CUSTID --조인조건
+AND C.NAME = '박지성' --검색조건
+;
+--ANSI 표준 조인 쿼리
+SELECT * 
+  FROM CUSTOMER C INNER JOIN ORDERS O
+       ON  C.CUSTID = O.CUSTID --조인 조건
+   WHERE  C.NAME = '박지성' --검색 조건
+;
+----------------------
+--박지성이 구입한 합계 금액
+SELECT SUM(O. SALEPRICE)
+--SELECT * 
+FROM CUSTOMER C, ORDERS O --조인할 테이블
+WHERE C.CUSTID = O.CUSTID --조인 조건
+AND C.NAME = '박지성' --검색조건
+;
+---------------
+SELECT * FROM BOOK;
+SELECT * FROM ORDERS;
+--출판한 책중 판매된 책 목록(미디어로 끝나는 출판사)
+SELECT * 
+FROM BOOK B, ORDERS O --조인할 테이블
+WHERE B.BOOKID = O.BOOKID --조인조건
+AND B.PUBLISHER LIKE '%미디어' 
+ORDER BY B.PUBLISHER, B.BOOKNAME
+;
+--=================================
+--(실습) 테이블 조인해서 요청데이터 찾기 
+--1. '야구를 부탁해' 라는 책이 팔린 내역 확인(책 제목, 판매금액, 판매일자)
+SELECT * FROM BOOK;
+SELECT * FROM ORDERS;
+
+SELECT B.BOOKNAME, O.SALEPRICE, O.ORDERDATE
+FROM BOOK B, ORDERS O 
+WHERE B.BOOKID = O.BOOKID
+AND B.BOOKNAME = '야구를 부탁해'
+;
+SELECT B.BOOKNAME, O.SALEPRICE, O.ORDERDATE
+  FROM BOOK B INNER JOIN ORDERS O 
+    ON B.BOOKID = O.BOOKID
+WHERE B.BOOKNAME = '야구를 부탁해'
+;
+
+
+--2. '야구를 부탁해' 라는 책이 몇 권이 팔렸는지 확인(COUNT)
+SELECT COUNT(O. SALEPRICE) 
+FROM BOOK B, ORDERS O 
+WHERE B.BOOKID = O.BOOKID
+AND BOOKNAME = '야구를 부탁해'
+;
+
+--3. '추신수' 구입한 책값과 구입일자 (책값, 구입일자)
+SELECT * FROM CUSTOMER;
+SELECT * FROM ORDERS;
+
+SELECT O.SALEPRICE, O.ORDERDATE
+FROM CUSTOMER C, ORDERS O 
+WHERE C.CUSTID = O.CUSTID 
+AND C.NAME = '추신수'
+;
+
+--4. '추신수'가 구입한 합계금액 확인(SUM)
+SELECT SUM(O. SALEPRICE) 
+FROM CUSTOMER C, ORDERS O 
+WHERE C.CUSTID = O.CUSTID 
+AND C.NAME = '추신수'
+;
+
+--5. 박지성, 추신수 구입한 내역 확인(이름, 판매금액, 판매일자 )
+SELECT C.NAME, O.SALEPRICE, O.ORDERDATE
+FROM CUSTOMER C, ORDERS O
+WHERE C.CUSTID = O.CUSTID 
+AND C.NAME IN ('박지성','추신수')
+ORDER BY C.NAME, O.ORDERDATE
+;
+
+SELECT C.NAME, O.SALEPRICE, O.ORDERDATE
+FROM CUSTOMER C, ORDERS O
+WHERE C.CUSTID = O.CUSTID AND(C.NAME = '박지성' OR C. NAME = '추신수')
+;
+
+SELECT C.NAME, O.SALEPRICE, O.ORDERDATE
+FROM CUSTOMER C, ORDERS O
+WHERE C.CUSTID = O.CUSTID 
+AND (C.NAME = '박지성' OR C.NAME = '추신수')
+;
+--===========================
+--3개 테이블 조인(결합)해서 데이터 조회(검색, 선택)
+--고객명, 책제목, 출판사, 판매가격, 판매일자
+SELECT C.NAME, B.BOOKNAME, B.PUBLISHER, O.SALEPRICE, O.ORDERDATE 
+ FROM ORDERS O, BOOK B, CUSTOMER C
+ WHERE O.BOOKID = B.BOOKID  --조인조건
+  AND O.CUSTID = C.CUSTID --조인조건
+;
+SELECT C.NAME, B.BOOKNAME, B.PUBLISHER, O.SALEPRICE, O.ORDERDATE 
+ FROM ORDERS O, BOOK B, CUSTOMER C
+ WHERE  B.BOOKID = O.BOOKID --조인조건
+  AND O.CUSTID = C.CUSTID --조인조건
+;
+--ANSI 표준 SQL
+SELECT C.NAME, B.BOOKNAME, B.PUBLISHER, O.SALEPRICE, O.ORDERDATE 
+ FROM BOOK B INNER JOIN ORDERS O
+     ON B.BOOKID = O.BOOKID
+     INNER JOIN CUSTOMER C
+     ON O.CUSTID = C.CUSTID
+;
+------------------------------
+--(실습) BOOK, CUSTMER, ORDERS 테이블 데이터 조회
+--1. 장미란이 구입한 책 제목, 구입가격, 구입일자, 출판사
+--2. 장미란이 구입한 책 중에 2014-01-01 ~2014-07-08까지 구입한 내역
+--3. '야구를 부탁해'라는 책을 구입한 사람과 구입일자 확인
+--4. 추신수, 장미란이 구입한 책제목, 구입금액, 구입일자 확인
+----(정렬: 고객명, 구입일자 순으로)
+--5. 추신수가 구입한 책 갯수, 합계 금액, 평균값, 가장 비싼책 금액, 가장 싼 책 금액
+-------------------------------
+
+--1. 장미란이 구입한 책 제목, 구입가격, 구입일자, 출판사
+SELECT C.NAME, B.BOOKNAME, O.SALEPRICE, O.ORDERDATE, B.PUBLISHER 
+ FROM ORDERS O, BOOK B, CUSTOMER C
+ WHERE O.BOOKID = B.BOOKID  
+  AND O.CUSTID = C. CUSTID
+  AND C.NAME = '장미란'
+;
+
+--2. 장미란이 구입한 책 중에 2014-01-01 ~2014-07-08까지 구입한 내역
+SELECT ORDERDATE, TO_CHAR(ORDERDATE, 'YYYY-MM-DD HH24:MI:SS') FROM ORDERS;
+
+SELECT *
+ FROM ORDERS O, BOOK B, CUSTOMER C
+ WHERE O.BOOKID = B.BOOKID  
+  AND O.CUSTID = C. CUSTID
+  AND C.NAME = '장미란'
+  AND O.ORDERDATE  BETWEEN TO_DATE('2014-01-01', 'YYYY-MM-DD')
+                AND TO_DATE('2014-07-09', 'YYYY-MM-DD') --2014-07-09 00:00:00
+;
+
+
+--3. '야구를 부탁해'라는 책을 구입한 사람과 구입일자 확인
+SELECT B.BOOKNAME, C.NAME, O.ORDERDATE, O.SALEPRICE
+FROM BOOK B, CUSTOMER C, ORDERS O
+WHERE O.BOOKID = B.BOOKID  AND O.CUSTID = C.CUSTID --조인조건
+AND B.BOOKNAME = '야구를 부탁해'
+;
+
+---4. 추신수, 장미란이 구입한 책제목, 구입금액, 구입일자 확인
+----(정렬: 고객명, 구입일자 순으로)
+
+SELECT C.NAME, B.BOOKNAME, O.SALEPRICE, O.ORDERDATE
+FROM CUSTOMER C, ORDERS O ,BOOK B
+WHERE O.BOOKID = B.BOOKID AND O.CUSTID = C.CUSTID 
+AND C.NAME IN ('장미란','추신수')
+ORDER BY C.NAME, O.ORDERDATE
+--ORDER BY 1,4 (위치값)
+;
+
+--5. 추신수가 구입한 책 갯수, 합계 금액, 평균값, 가장 비싼책 금액, 가장 싼 책 금액
+
+SELECT COUNT(*),SUM(O. SALEPRICE) ,AVG(O.SALEPRICE),  MAX((O.SALEPRICE)), MIN((O.SALEPRICE))
+    FROM CUSTOMER C, ORDERS O 
+  WHERE C.CUSTID = O.CUSTID 
+  AND C.NAME = '추신수' --이줄 빼면 모든 사람
+;
+
+
+SELECT C.NAME, COUNT(*), SUM(O.SALEPRICE), 
+        ROUND(AVG(O.SALEPRICE)) --반올림ROUND
+        , MAX(O.SALEPRICE), MIN(O.SALEPRICE)
+    FROM CUSTOMER C, ORDERS O
+    WHERE C.CUSTID = O.CUSTID
+    GROUP BY C.NAME
+;
+
+
+
+
+
+
+
+
+
+

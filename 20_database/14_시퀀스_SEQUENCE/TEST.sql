@@ -1,0 +1,140 @@
+--DB유저 생성 
+-- USER SQL
+CREATE USER "TEST" IDENTIFIED BY "testpw"  
+DEFAULT TABLESPACE "SYSTEM"
+TEMPORARY TABLESPACE "TEMP"
+;
+-- QUOTAS
+ALTER USER "TEST" QUOTA UNLIMITED ON "USERS";
+-- ROLES
+ALTER USER "TEST" DEFAULT ROLE "CONNECT","RESOURCE";
+
+-- SYSTEM PRIVILEGES
+GRANT CREATE VIEW TO "TEST" 
+---======================
+--MEMBER 테이블 생성
+CREATE TABLE MEMBER (
+    ID VARCHAR2(20) PRIMARY KEY, 
+    NAME VARCHAR2(30) NOT NULL,
+    PASSWORD VARCHAR2(20) NOT NULL,
+    PHONE VARCHAR2(20),
+    EMAIL VARCHAR2(50)
+);
+COMMENT ON COLUMN "TEST"."MEMBER"."ID" IS '아이디';
+   COMMENT ON COLUMN "TEST"."MEMBER"."NAME" IS '성명';
+   COMMENT ON COLUMN "TEST"."MEMBER"."PASSWORD" IS '암호';
+   COMMENT ON COLUMN "TEST"."MEMBER"."PHONE" IS '전화번호';
+   COMMENT ON COLUMN "TEST"."MEMBER"."EMAIL" IS '이메일';
+   COMMENT ON TABLE "TEST"."MEMBER"  IS '';
+COMMIT;
+
+
+--BORAD 테이블 생성
+CREATE TABLE BOARD (
+    BNO NUMBER PRIMARY KEY,
+    TITLE VARCHAR2(150) NOT NULL,
+    CONTENT VARCHAR2(3000)NOT NULL,
+    ID VARCHAR2(20) REFERENCES MEMBER(ID) NOT NULL, --외래키 설정
+    REGDATE DATE NOT NULL 
+);
+COMMENT ON COLUMN "TEST"."BOARD"."BNO" IS '글번호';
+COMMENT ON COLUMN "TEST"."BOARD"."TITLE" IS '글제목';
+COMMENT ON COLUMN "TEST"."BOARD"."CONTENT" IS '글내용';
+COMMENT ON COLUMN "TEST"."BOARD"."ID" IS '작성자아이디';
+COMMENT ON COLUMN "TEST"."BOARD"."REGDATE" IS '작성일시';
+COMMENT ON TABLE "TEST"."BOARD"  IS '';
+COMMIT;
+
+
+
+
+--BORAD 데이블 ID 컬럼에 인덱스 생성 
+CREATE INDEX BOARD_IDX_ID ON BOARD (ID);
+
+----------------------------------------------
+
+
+--SQL 활용
+--1번 답안 3개 데이터 입력 
+INSERT INTO MEMBER
+  VALUES('hong', '홍길동','hong1234','010-1111-1111','hong@test.com');
+COMMIT;
+INSERT INTO MEMBER
+  VALUES('kim', '김유신','kim1234','010-2222-2222','kim@test.com');
+COMMIT;
+INSERT INTO MEMBER
+  VALUES('kang', '강감찬','kang1234','010-3333-3333','kang@test.com');
+COMMIT;
+
+SELECT * FROM MEMBER;
+
+--1번 2개의 추가로 입력 (총 5명 입력)
+INSERT INTO MEMBER
+ VALUES('seo', '서강준', 'seo1234','010-4444-4444', 'seo@test.com');
+COMMIT;
+INSERT INTO MEMBER
+ VALUES('moon', '문빈', 'moon1234','010-5555-5555', 'moon@test.com');
+COMMIT;
+SELECT * FROM MEMBER;
+
+--2번 입력 답안
+--홍길동이 작성한 게시글 2개 입력 
+INSERT INTO BOARD
+ VALUES('1', 'SQL배우기','공부하는 중입니다.','hong',SYSDATE); 
+COMMIT;
+INSERT INTO BOARD
+ VALUES('2', 'SQL배우기2','복습하고 있습니다.','hong',SYSDATE);
+COMMIT;
+
+--입력 후 데이터 확인
+SELECT * FROM BOARD;
+
+--2번 수정) 김유신 데이터가 있는 지 찾기
+SELECT * FROM MEMBER WHERE ID = 'kim';
+--전화번호와 이메일을 010-2222-1234, kim@mystudy.com으로 수정
+UPDATE MEMBER SET PHONE = '010-2222-1234'WHERE ID = 'kim';
+UPDATE MEMBER SET EMAIL = 'kim@mystudy.com' WHERE ID = 'kim';
+COMMIT;
+--김유신 데이터 변경 확인
+SELECT * FROM MEMBER WHERE ID = 'kim';
+
+--3번 삭제) 추가 입력한 2명의 회원정보를 삭제
+SELECT * FROM MEMBER WHERE NAME = '서강준';
+DELETE FROM MEMBER WHERE NAME = '서강준';
+COMMIT;
+SELECT * FROM MEMBER WHERE NAME = '문빈';
+DELETE FROM MEMBER WHERE NAME = '문빈';
+COMMIT;
+
+--4번 TEST 데이터 베이스에 있는 테이블과 제약조건을 확인하고 작성하시오
+--MEMBER 테이블 제약조건
+SELECT * FROM MEMBER;
+--BOARD 테이블 제약조건
+SELECT * FROM BOARD;
+--=======================
+--문제 2번
+--2-1) MEMBER 테이블의 NAME 컬럼에 MEMBER_IDX_NAME 이라는 인덱스를 만드시오
+CREATE INDEX MEMBER_IDX_NAME ON MEMBER (NAME);
+COMMIT;
+
+--2-2) MEMBER 테이블과 BOARD 테이블을 조인하여 
+--MEMBER 테이블의 아이디, 성명, 전화번호, 이메일과 
+--BOARD테이블의 글번호, 제목, 작성일 정보를 조회할 수 있는(VIEW_MEMBER_BOARD)를 만드시오
+
+CREATE VIEW VIEW_MEMBER_BOARD 
+AS
+SELECT M.ID, M.NAME, M.PHONE, M.EMAIL,
+       B.BNO, B.TITLE, B.REGDATE
+FROM MEMBER M, BOARD B
+ WHERE M.ID = B.ID
+WITH READ ONLY;
+
+--2-3) 홍길동이 작성한 글을 MEMBER 테이블과 BOARD 테이블을 조인해서 
+--성명, 글제목, 작성일을 작성일 순으로 조회하시오
+
+SELECT M.NAME, B.TITLE, B.REGDATE
+ FROM MEMBER M, BOARD B
+ WHERE M.NAME = '홍길동'
+ ORDER BY B.REGDATE
+ ;
+

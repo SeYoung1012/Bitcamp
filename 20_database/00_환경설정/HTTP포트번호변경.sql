@@ -1,0 +1,10 @@
+--HTTP 포트변경 : 8080 -> 8090
+--DB 설치 후 HTTP 포트 번호 확인 : 8080 
+SELECT DBMS_XDB.GETHTTPPORT()FROM DUAL;
+
+
+--HTTP 포트변경 8090 으로 변경
+EXEC dbms_xdb.SETHTTPPORT(8090);
+
+--DB 설치 후 HTTP 포트 번호 확인 : 8090 
+SELECT DBMS_XDB.GETHTTPPORT()FROM DUAL;
