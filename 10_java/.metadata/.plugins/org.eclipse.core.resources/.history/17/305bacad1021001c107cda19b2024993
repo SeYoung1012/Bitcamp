@@ -1,5 +1,0 @@
-package jdbc.store.vo;
-
-public class BookVO {
-
-}
