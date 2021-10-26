@@ -1,5 +1,8 @@
 package polymorphism04;
 
+import org.springframework.stereotype.Component;
+
+@Component 	//lgTV 명칭으로 객체 생성(클래스명 첫글자 소문자)
 public class LgTV implements TV {
 	
 	public LgTV() {
@@ -34,11 +37,11 @@ public class LgTV implements TV {
 	
 	//---------------------------------------
 	public void initMethod() {
-		System.out.println(">> SamsungTV - initMethod() 실행");
+		System.out.println(">> LgTV- initMethod() 실행");
 		
 	}
 	public void destroyMethod() {
-		System.out.println(">> SamsungTV - destroyMethod() 실행");
+		System.out.println(">> LgTV - destroyMethod() 실행");
 		
 	}
 

@@ -53,13 +53,13 @@ public class SamsungTV implements TV{
 	@Override
 	public void volumeUp() {
 		System.out.println("SamsungTV - 소리크게");
-		speaker.volumnUp();
+		this.speaker.volumnUp();
 	}
 
 	@Override
 	public void volumeDown() {
 		System.out.println("SamsungTV - 소리작게");
-		speaker.volumnDown();
+		this.speaker.volumnDown();
 	}
 	
 	//------------------------------------------

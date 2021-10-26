@@ -1,5 +1,6 @@
 package polymorphism04;
 
+
 public class AppleSpeaker implements Speaker{
 
 	
