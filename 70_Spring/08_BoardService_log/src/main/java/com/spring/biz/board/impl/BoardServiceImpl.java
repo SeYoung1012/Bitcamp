@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.biz.board.BoardService;
 import com.spring.biz.board.BoardVO;
+import com.spring.biz.common.Log4jAdvice;
 import com.spring.biz.common.LogAdvice;
 
 
@@ -17,41 +18,48 @@ import com.spring.biz.common.LogAdvice;
 public class BoardServiceImpl implements BoardService {
 	@Autowired // 타입이 일치하는 객체(인스턴스) 주입
 	private BoardDAO boardDAO;
-	private LogAdvice log;
-
+	//private LogAdvice log;
+	private Log4jAdvice log4j;
+	
 	public BoardServiceImpl() {
 		System.out.println(">> BoardServiceImpl() 객체 생성");
-		log = new LogAdvice();
+		//log = new LogAdvice();
+		log4j = new Log4jAdvice();
 	}
 	
 	@Override
 	public void insertBoard(BoardVO vo) {
-		log.printLog();
+		//log.printLog();
+		log4j.printLogging();
 		boardDAO.insertBoard(vo);
 	}
 
 	@Override
 	public void updateBoard(BoardVO vo) {
-		log.printLog();
+		//log.printLog();
+		log4j.printLogging();
 		boardDAO.updateBoard(vo);
 	}
 
 	@Override
 	public void deleteBoard(BoardVO vo) {
-		log.printLog();
+		//log.printLog();
+		log4j.printLogging();
 		boardDAO.deleteBoard(vo);
 		
 	}
 
 	@Override
 	public BoardVO getBoard(BoardVO vo) {
-		log.printLog();
+		//log.printLog();
+		log4j.printLogging();
 		return boardDAO.getBoard(vo);
 	}
 
 	@Override
 	public List<BoardVO> getBoardList() {
-		log.printLog();
+		//log.printLog();
+		log4j.printLogging();
 		return boardDAO.getBoardList();
 	}
 
