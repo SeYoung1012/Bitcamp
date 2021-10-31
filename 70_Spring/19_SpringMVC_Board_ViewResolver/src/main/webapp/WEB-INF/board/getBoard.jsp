@@ -39,7 +39,7 @@
 			<tr>
 				<th >작성자</th>
 				<td>
-					<input type="text" name="title" value="${board.writer }" >
+					<input type="text" name="writer" value="${board.writer }" >
 				</td>
 			</tr>
 			<tr>
