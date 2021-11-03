@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>자동차 견적</title>
-    <script src = "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery import 방식2(CDN 방식) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
     #carZone {
         width: 600px;
@@ -30,8 +31,74 @@
 </style>  
 <script>
     //(실습) jQuery를 사용해서 자동차견적을 구하세요
+    $(document).ready(function(){
+        $("#opt1").change(function(){
+            console.log("checked : " + this.checked); // true, false
+            console.log("JQ prop : " + $(this).prop("checked")); // true, false
+            console.log("JQ after : " + $(this).after("checked")); // undefined, checked
+
+            
+            
+            // 현재 차량금액 확인
+            let totalValue = parseInt($("#total").val());
+            let totalValue = 
+            // 체크상태면 값을 합산, 체크해제면 빼기 처리
+            // 방법 1
+            if($(this).prop("checked")){
+                totalValue += parseInt($(this).val());
+            } else {
+                totalValue -= parseInt($(this).val());
+            }
+            // 방법 2 (자바스크립트 방식)
+            if(this.checked){
+                totalValue += parseInt(this.value);
+            } else {
+                totalValue -= parseInt(this.value);
+            }    
 
 
+                // 최종 차량 가액 회면 표시
+            $("#total").val(totalValue);
+        });
+
+           
+    });
+    
+    $().ready(function(){
+        
+        $("#opt1").change(fnComputerOption);
+        $("#opt2").change(fnComputerOption);
+        $("#opt3").change(fnComputerOption);
+
+        $(".opt").change(fnComputerOption);
+    });
+    
+    function fnComputerOption(){
+        console.log("checked : " + this.checked); // true, false
+        console.log("JQ prop : " + $(this).prop("checked")); // true, false
+        console.log("JQ after : " + $(this).after("checked")); // undefined, checked
+
+            
+            
+         // 현재 차량금액 확인
+        let totalValue = parseInt($("#total").val());
+        let totalValue = 
+        // 체크상태면 값을 합산, 체크해제면 빼기 처리
+        // 방법 1
+        if($(this).prop("checked")){
+            totalValue += parseInt($(this).val());
+        } else {
+            totalValue -= parseInt($(this).val());
+        }
+        // 방법 2 (자바스크립트 방식)
+        if(this.checked){
+            totalValue += parseInt(this.value);
+        } else {
+            totalValue -= parseInt(this.value);
+        }    
+        // 최종 차량 가액 회면 표시
+        $("#total").val(totalValue);
+    }
 </script>
 </head>
 <body>
@@ -40,7 +107,7 @@
     <p><img src="images/car1.jpg" alt="자동차이미지"></p>
     <table id="car">
         <colgroup>
-            <col width="50%">
+            <col width="50%"> 
             <col width="30%">
         </colgroup>
         <thead>
@@ -83,11 +150,32 @@
         </tfoot>
     </table>
 </div>
-
     
-    
+        
+	<br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -53,6 +53,21 @@
         });
         
         //(실습) prev : 이전버튼 클릭시 처리
+         $("#prev").click(function(){
+            $list.stop(true);
+            console.log("prev 클릭 시작 clickCnt : " + clickCnt);
+            
+            if(clickCnt <= 0) {
+                clickCnt = 5;
+                $list.css("margin-left", -(200 * clickCnt) + "px");
+            }
+            
+            clickCnt--;
+            console.log("prev 클릭 1감소 후 clickCnt : " + clickCnt);
+            $list.animate({"margin-left": -200 * clickCnt + "px"}, 1000);
+        });
+
+        
     });
     
 </script>   
